@@ -28,6 +28,11 @@ export interface ToolDef<S extends z.ZodTypeAny = z.ZodTypeAny> {
   run: (args: z.infer<S>, ctx: ToolContext) => Promise<unknown> | unknown;
 }
 
+/** Keeps each tool's args typed from its schema while storing them in one list. */
+export function defineTool<S extends z.ZodTypeAny>(def: ToolDef<S>): ToolDef {
+  return def as unknown as ToolDef;
+}
+
 export class ToolRegistry {
   private tools = new Map<string, ToolDef>();
 

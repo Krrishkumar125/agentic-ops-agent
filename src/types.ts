@@ -20,6 +20,8 @@ export interface ToolCall {
 
 /** What the model must return on every step (validated with zod). */
 export interface AgentDecision {
+  /** What the last observations told the model (empty on the first step). */
+  reflection: string;
   thought: string;
   plan: string[];
   actions: ToolCall[];
