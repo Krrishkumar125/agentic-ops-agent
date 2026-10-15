@@ -187,4 +187,4 @@ scripts/demo.sh
 
 ## Note on how this was built
 
-Written with AI coding assistance and reviewed by me; the commit history shows how it was put together.
+Built with AI coding assistance, which the brief allows. The commit history shows the order it was put together in.
