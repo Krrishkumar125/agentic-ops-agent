@@ -1,0 +1,32 @@
+{
+  "name": "agentic-ops-agent",
+  "version": "0.1.0",
+  "description": "Autonomous knowledge-execution agent for IT ops: reasons over internal knowledge sources and takes actions with an LLM.",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "opsagent": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/cli.js",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "demo": "bash scripts/demo.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^18.0.8",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}
