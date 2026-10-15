@@ -45,6 +45,11 @@ export class ToolRegistry {
     return [...this.tools.values()].filter((t) => !this.allowlist || this.allowlist.includes(t.name));
   }
 
+  /** Unknown tools count as "read" here; execute() rejects them anyway. */
+  riskOf(name: string): Risk {
+    return this.tools.get(name)?.risk ?? "read";
+  }
+
   /** Short text description used in the system prompt. */
   describe(): string {
     return this.list()

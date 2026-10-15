@@ -86,10 +86,9 @@ export class Agent {
 
       // ACT: run the requested tools
       const results = await this.act(decision.actions);
-      for (const r of results) if (r.ok && !r.skipped && r.tool !== undefined) {
-        const call = decision.actions.find((a) => a.tool === r.tool);
-        if (call && tools.list().find((t) => t.name === r.tool)?.risk !== "read") executed.push(`${r.tool}(${JSON.stringify(call.args)})`);
-      }
+      results.forEach((r, i) => {
+        if (r.ok && !r.skipped && tools.riskOf(r.tool) !== "read") executed.push(describeCall(decision.actions[i]));
+      });
       emit({ type: "observation", step, results });
 
       // REFLECT happens at the start of the next step: the model reads these
@@ -112,7 +111,7 @@ export class Agent {
   /** Read-only calls run in parallel; anything that changes state runs one by one, in order. */
   private async act(calls: ToolCall[]): Promise<ToolResult[]> {
     const { tools, ctx } = this.opts;
-    const riskOf = (name: string) => tools.list().find((t) => t.name === name)?.risk ?? "read";
+    const riskOf = (name: string) => tools.riskOf(name);
     const results: ToolResult[] = new Array(calls.length);
     const reads = calls.map((c, i) => ({ c, i })).filter(({ c }) => riskOf(c.tool) === "read");
     await Promise.all(reads.map(async ({ c, i }) => (results[i] = await tools.execute(c.tool, c.args, c.why, ctx))));
@@ -134,4 +133,12 @@ export class Agent {
     });
     return result;
   }
+}
+
+/** Short label for an executed call, e.g. create_ticket(team=payments, title=...). */
+function describeCall(call: ToolCall): string {
+  const parts = Object.entries(call.args)
+    .filter(([, v]) => typeof v === "string" && v.length <= 60)
+    .map(([k, v]) => `${k}=${v}`);
+  return `${call.tool}(${parts.join(", ")})`;
 }
