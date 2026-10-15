@@ -27,20 +27,13 @@ export interface Alert {
   message: string;
 }
 
-/** Tiny CSV parser: enough for our runbooks (no quoted commas). */
+/** Tiny CSV parser: enough for our runbooks (no quoted fields). */
 export function parseCsv(raw: string): Record<string, string>[] {
   const lines = raw.trim().split(/\r?\n/);
   const header = lines.shift()?.split(",") ?? [];
   return lines.map((line) => {
     const cells = line.split(",");
-    // anything past the header width belongs to the last-but-one column
-    const row: Record<string, string> = {};
-    header.forEach((h, i) => {
-      if (i === header.length - 1) row[h] = cells[cells.length - 1] ?? "";
-      else if (i === header.length - 2) row[h] = cells.slice(i, cells.length - 1).join(",");
-      else row[h] = cells[i] ?? "";
-    });
-    return row;
+    return Object.fromEntries(header.map((h, i) => [h, cells[i]?.trim() ?? ""]));
   });
 }
 
