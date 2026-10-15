@@ -1,0 +1,6 @@
+[
+  { "id": "ALR-101", "at": "2026-10-15T09:12:00Z", "service": "payments-api", "severity": "high", "message": "5xx rate 7.8% over 5m since v2.14.0 rollout (threshold 2%)" },
+  { "id": "ALR-102", "at": "2026-10-15T09:05:00Z", "service": "fraud-check", "severity": "medium", "message": "p95 latency 1.9s, redis connection pool exhausted" },
+  { "id": "ALR-103", "at": "2026-10-15T08:01:00Z", "service": "notifications", "severity": "high", "message": "CrashLoopBackOff: missing env SMTP_HOST after v3.2.1 deploy" },
+  { "id": "ALR-104", "at": "2026-10-14T22:30:00Z", "service": "postgres-main", "severity": "low", "message": "disk usage 71%" }
+]

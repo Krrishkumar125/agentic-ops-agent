@@ -1,0 +1,10 @@
+{
+  "snapshot_at": "2026-10-15T09:00:00Z",
+  "services": [
+    { "name": "payments-api", "team": "payments", "status": "healthy", "error_rate_pct": 0.4, "p95_latency_ms": 210, "version": "v2.14.0", "last_deploy_at": "2026-10-15T08:40:00Z", "depends_on": ["postgres-main", "fraud-check"] },
+    { "name": "fraud-check", "team": "risk", "status": "degraded", "error_rate_pct": 6.2, "p95_latency_ms": 1850, "version": "v1.9.3", "last_deploy_at": "2026-10-10T12:00:00Z", "depends_on": ["redis-cache"] },
+    { "name": "redis-cache", "team": "platform", "status": "healthy", "error_rate_pct": 0.0, "p95_latency_ms": 3, "version": "7.2", "last_deploy_at": "2026-09-30T05:00:00Z", "depends_on": [] },
+    { "name": "postgres-main", "team": "platform", "status": "healthy", "error_rate_pct": 0.1, "p95_latency_ms": 12, "version": "16.2", "last_deploy_at": "2026-09-01T05:00:00Z", "depends_on": [] },
+    { "name": "notifications", "team": "growth", "status": "down", "error_rate_pct": 100, "p95_latency_ms": 0, "version": "v3.2.1", "last_deploy_at": "2026-10-15T07:55:00Z", "depends_on": ["redis-cache"] }
+  ]
+}

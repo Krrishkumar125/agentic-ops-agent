@@ -1,0 +1,6 @@
+id,service,symptom,recommended_action,risk
+RB-1,payments-api,error rate above 2% right after a deploy,rollback to previous version then open incident ticket,critical
+RB-2,fraud-check,high latency with redis pool exhaustion,restart fraud-check pods to reset connection pool and notify risk on-call,critical
+RB-3,notifications,crash loop due to missing config,open ticket for owning team with the missing variable; do not restart until config fixed,normal
+RB-4,postgres-main,disk usage above 85%,notify platform on-call,normal
+RB-5,any,unclear or conflicting signals,collect evidence and escalate to on-call instead of acting,normal

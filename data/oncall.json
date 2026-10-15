@@ -1,0 +1,6 @@
+{
+  "payments": { "primary": "Ananya Rao", "channel": "#payments-oncall" },
+  "risk": { "primary": "Vikram Shah", "channel": "#risk-oncall" },
+  "platform": { "primary": "Meera Iyer", "channel": "#platform-oncall" },
+  "growth": { "primary": "Rohan Das", "channel": "#growth-oncall" }
+}
