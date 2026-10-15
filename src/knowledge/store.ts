@@ -95,9 +95,11 @@ export class KnowledgeStore {
     const kbDir = join(this.dir, "kb");
     if (existsSync(kbDir)) {
       for (const f of readdirSync(kbDir).filter((f) => extname(f) === ".md")) {
-        // one doc per paragraph/bullet so search returns focused snippets
-        const chunks = readFileSync(join(kbDir, f), "utf8").split(/\n(?=- |\n)/).map((c) => c.trim()).filter(Boolean);
-        chunks.forEach((text, i) => this.docs.push({ id: `kb:${basename(f, ".md")}#${i}`, source: `kb/${f}`, text }));
+        // one doc per bullet/paragraph, prefixed with the page title, so search returns focused snippets
+        const raw = readFileSync(join(kbDir, f), "utf8");
+        const title = raw.match(/^#\s+(.+)$/m)?.[1] ?? basename(f, ".md");
+        const chunks = raw.split(/\n(?=- |\n)/).map((c) => c.trim()).filter((c) => c && !c.startsWith("#"));
+        chunks.forEach((text, i) => this.docs.push({ id: `kb:${basename(f, ".md")}#${i}`, source: `kb/${f}`, text: `${title}: ${text}` }));
       }
     }
   }
